@@ -1,4 +1,5 @@
-# Alternator    
+# Alternator
+![icon of an abstract car altnerator with the text ALT on it](/icon_128.png)
 
 ## Purpose
 
