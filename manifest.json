@@ -1,12 +1,9 @@
 {
-  "name": "Fresh Chrome Extension",
-  "description": "Fully functional, useful bare minimum Google Chrome extension boilerplate [Manifest V3].",
-  "homepage_url": "https://github.com/llagerlof/fresh-chrome-extension",
+  "name": "Alternator",
+  "description": "This extension is designed to help archival institutions (such as museums) collect alt text and descriptions from enthusiastic users.",
+  "homepage_url": "https://github.com/harvardartmuseums/alternator",
   "version": "2.0.0",
   "manifest_version": 3,
-  "action": {
-    "default_title": "execute.js will run (watch the Chrome DevTools' console)"
-  },
   "icons": {
     "16": "icon_16.png",
     "32": "icon_32.png",
@@ -14,14 +11,6 @@
     "128": "icon_128.png"
   },
   "content_scripts": [
-    {
-      "run_at" : "document_start",
-      "js": ["before.js"],
-      "matches": [
-        "https://*/*",
-        "http://*/*"
-      ]
-    },
     {
       "run_at" : "document_idle",
       "js": ["after.js"],
@@ -31,9 +20,6 @@
       ]
     }
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
   "permissions": [
     "tabs",
     "scripting"

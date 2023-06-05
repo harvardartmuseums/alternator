@@ -8,6 +8,7 @@
     guide: document.querySelector("meta[name='alternator-guide']").getAttribute("content"),
     target: document.querySelector("meta[name='alternator-target']").getAttribute("content"),
     path: document.querySelector("meta[name='alternator-path']").getAttribute("content"),
+    container: document.querySelector("meta[name='alternator-container']").getAttribute("content"),
   }
 
   var action = null;
@@ -23,8 +24,35 @@
       action = null;
   }
 
+    // Show an element
+    var show = function (elem) {
+      elem.style.display = 'block';
+    };
+
+    // Hide an element
+    var hide = function (elem) {
+      elem.style.display = 'none';
+    };
+
+    // Toggle element visibility
+    var toggle = function (elem) {
+
+      // If the element is visible, hide it
+      if (window.getComputedStyle(elem).display === 'block') {
+        hide(elem);
+        return;
+      }
+
+      // Otherwise, show it
+      show(elem);
+
+    };
+
+  const button = `<button role="button" style="position: absolute; left:50%; transform: translateX(-50%); z-index: 500; font-size:16px; background-color: black; border: none; color: white; padding: 12px 32px; text-decoration: none;
+  cursor: pointer;" id="alternator-toggle">ALTERNATOR</button>`;
+
   const template = 
-  `<div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: #d4d4d7; text-align: center; font-family: arial;" class="place-content-center">
+  `<div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: #d4d4d7; text-align: center; font-family: arial; display:none;" class="place-content-center" id="alternator-form">
   <div style="width: 90%; margin: 0 auto; display:block; overflow:hidden;">
   <a href="${config.guide}" target="_blank" style=" background-color: #444444; border: none; color: white; padding: 12px 32px; text-decoration: none; cursor: pointer; display:table; float:right; margin: 20px 0; font-size:16px;">Institutional Style Guide</a>
   </div>
@@ -44,8 +72,17 @@ cursor: pointer;" type="submit" value="SUBMIT" />
   </form>
   </div>
   `;
-
+  
+  const container = document.getElementById(config.container);
+  container.insertAdjacentHTML('afterbegin', button);
+  const toggleButton = document.getElementById('alternator-toggle');
+  
   const article = document.querySelector('article');
   article.insertAdjacentHTML('afterend', template);
-  console.log(config)
+  const form = document.getElementById('alternator-form');
+
+  toggleButton.addEventListener('click', function (event) {
+    toggle(form)
+  });
+
 })();

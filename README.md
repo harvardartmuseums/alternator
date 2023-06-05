@@ -19,6 +19,7 @@ Any institution can use this extension to collect alt text submissions by adding
 | alternator-guide | Link to your institution's style guide for writing alt text and descriptions  |
 | alternator-target | Either "sm" for SheetMoney or "gs" for Google Sheets |
 | alternator-path | The unique portion of your form action URL |
+| alternator-container | The id of the element where the Alternator button should appear |
 
 For example:
 
@@ -28,3 +29,4 @@ For example:
     <meta name="alternator-guide" content="https://s3.amazonaws.com/media.harvardartmuseums.org/assets/files/HAM_image-description-guidelines_2020_03-25_final.pdf">
     <meta name="alternator-target" content="sm">
     <meta name="alternator-path" content="go6****MTpjKuUAaASk">
+    <meta name="alternator-container" content="image-container">
