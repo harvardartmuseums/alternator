@@ -1,4 +1,4 @@
-# Fresh Chrome Extension boilerplate (Manifest V3)
+# Alternator    
 
 ## Purpose
 
