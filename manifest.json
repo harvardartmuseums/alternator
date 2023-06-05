@@ -1,6 +1,6 @@
 {
   "name": "Alternator",
-  "description": "This extension is designed to help archival institutions (such as museums) collect alt text and descriptions from enthusiastic users.",
+  "description": "This extension is designed to help archival institutions (such as museums) collect alt text from enthusiastic users.",
   "homepage_url": "https://github.com/harvardartmuseums/alternator",
   "version": "1.0.0",
   "manifest_version": 3,
@@ -21,8 +21,7 @@
     }
   ],
   "permissions": [
-    "tabs",
-    "scripting"
+    "scripting", "activeTab"
   ],
   "host_permissions": [
     "https://*/*",
