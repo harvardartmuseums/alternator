@@ -17,7 +17,7 @@ Any institution can use this extension to collect alt text submissions by adding
 | alternator-url  | Reference URL for the object  |
 | alternator-contact  | Contact for routing the request (probably an email address)  |
 | alternator-guide | Link to your institution's style guide for writing alt text and descriptions  |
-| alternator-target | Either "sm" for SheetMoney or "gs" for Google Sheets |
+| alternator-target | Either "sm" for [SheetMonkey](https://sheetmonkey.io/) or "gs" for [Google Sheets](https://github.com/levinunnink/html-form-to-google-sheet) |
 | alternator-path | The unique portion of your form action URL |
 | alternator-container | The id of the element where the Alternator button should appear |
 
