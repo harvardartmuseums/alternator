@@ -4,7 +4,6 @@
     url: document.querySelector("meta[name='alternator-url']").getAttribute("content"),
     contact: document.querySelector("meta[name='alternator-contact']").getAttribute("content"),
     id: document.querySelector("meta[name='alternator-id']").getAttribute("content"),
-    contact: document.querySelector("meta[name='alternator-contact']").getAttribute("content"),
     guide: document.querySelector("meta[name='alternator-guide']").getAttribute("content"),
     target: document.querySelector("meta[name='alternator-target']").getAttribute("content"),
     path: document.querySelector("meta[name='alternator-path']").getAttribute("content"),
@@ -18,7 +17,7 @@
       action = `https://api.sheetmonkey.io/form/${config.path}`
       break;
     case "gs":
-      action = `https://google.sheets`
+      action = `https://script.google.com/macros/s/${config.path}/exec`
       break;
     default:
       action = null;
@@ -40,11 +39,13 @@
       // If the element is visible, hide it
       if (window.getComputedStyle(elem).display === 'block') {
         hide(elem);
+        scrollDetect('stop');
         return;
       }
 
       // Otherwise, show it
       show(elem);
+      scrollDetect();
 
     };
 
@@ -52,8 +53,9 @@
   cursor: pointer;" id="alternator-toggle">ALTERNATOR</button>`;
 
   const template = 
-  `<div style="position: fixed; left: 0; bottom: 0; width: 100%; background-color: #d4d4d7; text-align: center; font-family: arial; display:none;" class="place-content-center" id="alternator-form">
+  `<div style="transition: all .5s ease-in-out; position: fixed; z-index:600; left: 0; bottom: 0; width: 100%; background-color: #d4d4d7; text-align: center; font-family: arial; display:none;" class="place-content-center" id="alternator-form" >
   <div style="width: 90%; margin: 0 auto; display:block; overflow:hidden;">
+  <button onclick="dismiss(this);" id="alternator-close" style="background-color: black; border: none; color: white; padding: 12px 32px; text-decoration: none; cursor: pointer; display:table; float:right; margin: 20px 0 20px 20px; font-size:16px;">close</button>
   <a href="${config.guide}" target="_blank" style=" background-color: #444444; border: none; color: white; padding: 12px 32px; text-decoration: none; cursor: pointer; display:table; float:right; margin: 20px 0; font-size:16px;">Institutional Style Guide</a>
   </div>
   <form action="${action}" method="post" style="padding:20px 0; font-family: arial; width: 90%; margin: 0 auto;">
@@ -84,5 +86,42 @@ cursor: pointer;" type="submit" value="SUBMIT" />
   toggleButton.addEventListener('click', function (event) {
     toggle(form)
   });
+
+  function scrollDetect(x){
+    var lastScroll = 0;
+    var direction = "up";
+    var newDirection = "up";
+    let height = form.offsetHeight;
+
+    const close = document.getElementById('alternator-close');
+    close.addEventListener('click', function (event) {
+      toggle(form)
+    });
+
+    window.onscroll = function() {
+        if (x === "stop"){
+          return;
+        }else{
+          let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    
+          if (currentScroll > 0 && lastScroll <= currentScroll){
+            lastScroll = currentScroll;
+            newDirection ="down";
+            if (direction != newDirection){
+              direction = newDirection;
+              form.style.bottom = 85-height+"px";
+            }
+          }else{
+            lastScroll = currentScroll;
+            newDirection ="up";
+            if (direction != newDirection){
+              direction = newDirection;
+              form.style.bottom = "0";
+            }
+          }
+        }
+    };
+  }
+  
 
 })();
