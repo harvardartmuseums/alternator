@@ -53,12 +53,12 @@
   cursor: pointer;" id="alternator-toggle">ALTERNATOR</button>`;
 
   const template = 
-  `<div style="transition: all .5s ease-in-out; position: fixed; z-index:600; left: 0; bottom: 0; width: 100%; background-color: #d4d4d7; text-align: center; font-family: arial; display:none;" class="place-content-center" id="alternator-form" >
+  `<div id="alternator-container" style="transition: all .5s ease-in-out; position: fixed; z-index:600; left: 0; bottom: 0; width: 100%; background-color: #d4d4d7; text-align: center; font-family: arial; display:none;" class="place-content-center">
   <div style="width: 90%; margin: 0 auto; display:block; overflow:hidden;">
-  <button onclick="dismiss(this);" id="alternator-close" style="background-color: black; border: none; color: white; padding: 12px 32px; text-decoration: none; cursor: pointer; display:table; float:right; margin: 20px 0 20px 20px; font-size:16px;">close</button>
+  <button id="alternator-close" style="background-color: black; border: none; color: white; padding: 12px 32px; text-decoration: none; cursor: pointer; display:table; float:right; margin: 20px 0 20px 20px; font-size:16px;">close</button>
   <a href="${config.guide}" target="_blank" style=" background-color: #444444; border: none; color: white; padding: 12px 32px; text-decoration: none; cursor: pointer; display:table; float:right; margin: 20px 0; font-size:16px;">Institutional Style Guide</a>
   </div>
-  <form action="${action}" method="post" style="padding:20px 0; font-family: arial; width: 90%; margin: 0 auto;">
+  <form id="alternator-form" action="${action}" method="post" style="padding:20px 0; font-family: arial; width: 90%; margin: 0 auto;">
     <!-- Put HTML input fields in here and see how they fill up your sheet -->
     <textarea rows="3" placeholder="Alt text" name="alt" style="width:100%; font-family: arial; font-size:16px; margin-bottom: 10px; padding:10px; box-sizing: border-box;" required /></textarea>
     <textarea rows="3" placeholder="Description text" name="description" style="width:100%; font-family: arial; font-size:16px; margin-bottom: 10px; padding:10px; box-sizing: border-box;" /></textarea>
@@ -81,7 +81,7 @@ cursor: pointer;" type="submit" value="SUBMIT" />
   
   const article = document.querySelector('article');
   article.insertAdjacentHTML('afterend', template);
-  const form = document.getElementById('alternator-form');
+  const form = document.getElementById('alternator-container');
 
   toggleButton.addEventListener('click', function (event) {
     toggle(form)
@@ -123,5 +123,29 @@ cursor: pointer;" type="submit" value="SUBMIT" />
     };
   }
   
+  var targetNode = document.getElementById('alternator-container');
+  var observer = new MutationObserver(function(){
+      if(targetNode.style.display != 'none'){
+        const formfields = document.getElementById('alternator-form');
+        formfields.addEventListener("submit", function(e) {
+          e.preventDefault();
+          const data = new FormData(formfields);
+          const action = e.target.action;
+          fetch(action, {
+            method: 'POST',
+            body: data,
+          }).then(function (response) {
+            if (response.ok) {
+              toggle(form);
+              alert("Thank you for using Alternator to improve the accessibilty of this website. Your submission will be reviewed.");
+            } else {
+              alert("Something went wrong with this submission. Please try again later.");
+            }
+          })
+        });
+      }
+  });
+
+observer.observe(targetNode, { attributes: true, childList: true });
 
 })();
