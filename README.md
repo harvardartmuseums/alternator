@@ -30,3 +30,11 @@ For example:
     <meta name="alternator-target" content="sm">
     <meta name="alternator-path" content="go6****MTpjKuUAaASk">
     <meta name="alternator-container" content="image-container">
+
+## Use
+
+Alternator can be installed manually as a [Chrome extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked) or included on your website as a javascript file (`scripts > alternator.js` or `scripts > alternator.min.js`).
+
+## Styling Options
+
+The alternator "+ ALT" button will appear centered above the container defined in the `<meta>` tags. Alternately, omitting the `<meta>` definition for "alternator-container" will position the button fixed to the bottom right of the window.
